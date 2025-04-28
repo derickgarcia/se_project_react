@@ -17,6 +17,7 @@
 
 .modal__title {
   margin: 0 0 24px;
+  font-size: 16px;
 }
 
 .modal__close {
@@ -52,6 +53,7 @@
   margin-top: 7px;
   border-top: #000;
   border-inline: inherit;
+  padding: 2px 0 4px;
 }
 
 .modal__radio-buttons {

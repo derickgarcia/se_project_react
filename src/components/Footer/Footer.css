@@ -1,9 +1,12 @@
 .footer {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   font-family: "Cabinet Grotesk", sans-serif;
+  margin: auto 20px 0;
+  padding: 0px 20px 24px;
 }
 
 .footer__text {
-  margin: 0 auto 0 20px;
+  margin: 0;
 }

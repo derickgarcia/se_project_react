@@ -7,4 +7,7 @@
   margin: 0 auto;
   padding: 0 20px;
   font-family: "Cabinet Grotesk", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

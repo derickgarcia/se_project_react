@@ -8,6 +8,7 @@ function ModalWithForm({
   titleText,
   activeModal,
   handleCloseClick,
+  onSubmit,
 }) {
   const [isValid, setIsValid] = useState(false);
 
@@ -52,7 +53,7 @@ function ModalWithForm({
         >
           <img src={close} alt="Close-icon" className="modal__close-icon" />
         </button>
-        <form className="modal__form">
+        <form className="modal__form" onSubmit={onSubmit}>
           {children}
           <button
             disabled={!isValid}
