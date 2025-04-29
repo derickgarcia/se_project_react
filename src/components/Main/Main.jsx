@@ -17,7 +17,6 @@ function Main({ weatherData, handleCardClick, cards }) {
               return item.weather === weatherData.type;
             })
             .map((item, index) => {
-              console.log(item);
               return (
                 <ItemCard
                   key={item._id || `${item.name}-${index}`}

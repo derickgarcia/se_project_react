@@ -33,6 +33,11 @@ function App() {
   };
   const handleweatherChange = (evt) => {
     setWeather(evt.target.value);
+
+    document.querySelectorAll(".modal__label_type_radio").forEach((input) => {
+      input.classList.remove("selected-radio");
+    });
+    evt.target.classList.add("selected-radio");
   };
 
   const handleSubmit = (evt) => {
@@ -41,7 +46,7 @@ function App() {
     const newItem = {
       _id: Date.now().toString(),
       name,
-      imageUrl,
+      link: imageUrl,
       weather,
     };
 
@@ -113,6 +118,7 @@ function App() {
             placeholder="Name"
             value={name}
             onChange={handlenameChange}
+            required
           />
         </label>
         <label htmlFor="imageURL" className="modal__label">
@@ -137,6 +143,8 @@ function App() {
               className="modal__radio-input"
               value="hot"
               onChange={handleweatherChange}
+              checked={weather === "hot"}
+              required
             />{" "}
             Hot
           </label>
@@ -150,6 +158,8 @@ function App() {
               className="modal__radio-input"
               value="warm"
               onChange={handleweatherChange}
+              checked={weather === "warm"}
+              required
             />{" "}
             Warm
           </label>
@@ -163,6 +173,8 @@ function App() {
               className="modal__radio-input"
               value="cold"
               onChange={handleweatherChange}
+              checked={weather === "cold"}
+              required
             />{" "}
             Cold
           </label>
