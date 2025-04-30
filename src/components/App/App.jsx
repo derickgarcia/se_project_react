@@ -33,11 +33,6 @@ function App() {
   };
   const handleweatherChange = (evt) => {
     setWeather(evt.target.value);
-
-    document.querySelectorAll(".modal__label_type_radio").forEach((input) => {
-      input.classList.remove("selected-radio");
-    });
-    evt.target.classList.add("selected-radio");
   };
 
   const handleSubmit = (evt) => {
@@ -106,6 +101,7 @@ function App() {
         titleText="New garment"
         activeModal={activeModal}
         handleCloseClick={closeActiveModal}
+        isOpen={activeModal === "add-garment"}
         onSubmit={handleSubmit}
       >
         <label htmlFor="name" className="modal__label">
@@ -143,6 +139,7 @@ function App() {
               className="modal__radio-input"
               value="hot"
               onChange={handleweatherChange}
+              name="weatherType"
               checked={weather === "hot"}
               required
             />{" "}
@@ -158,6 +155,7 @@ function App() {
               className="modal__radio-input"
               value="warm"
               onChange={handleweatherChange}
+              name="weatherType"
               checked={weather === "warm"}
               required
             />{" "}
@@ -173,6 +171,7 @@ function App() {
               className="modal__radio-input"
               value="cold"
               onChange={handleweatherChange}
+              name="weatherType"
               checked={weather === "cold"}
               required
             />{" "}
