@@ -12,6 +12,12 @@ function ModalWithForm({
   //isValid = true,
 }) {
   const [isValid, setIsValid] = useState(false);
+  useEffect(() => {
+    const form = document.querySelector(".modal__form");
+    if (form) {
+      setIsValid(form.checkValidity());
+    }
+  }, [children]);
 
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
