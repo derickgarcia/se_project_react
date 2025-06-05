@@ -32,10 +32,6 @@ function App() {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
-  //const [name, setName] = useState("");
-  //const [imageUrl, setImageUrl] = useState("");
-  //const [weather, setWeather] = useState("");
-
   const handleAddSubmit = ({ name, imageUrl, weather }) => {
     const newItem = {
       _id: Date.now().toString(),
@@ -88,7 +84,8 @@ function App() {
   useEffect(() => {
     getItems()
       .then((data) => {
-        console.log(data);
+        //console.log(data);
+        setClothingItems(data);
       })
       .catch(console.error);
   }, []);
@@ -116,12 +113,6 @@ function App() {
               element={<Profile handleCardClick={handleCardClick} />}
             />
           </Routes>
-
-          <Main
-            weatherData={weatherData}
-            handleCardClick={handleCardClick}
-            clothingItems={clothingItems}
-          />
         </div>
 
         <AddItemModal
