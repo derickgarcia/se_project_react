@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
 import { coordinates, APIkey } from "../../utils/constants";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-//import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import Footer from "../Footer/Footer";
+import Profile from "../Profile/Profile";
 import ItemModal from "../ItemModal/ItemModal";
 import { getWeatherData, filterWeatherData } from "../../utils/weatherApi";
+import { getItems } from "../../utils/api";
 import "../../vendor/font.css";
 import { defaultClothingItems } from "../../utils/constants";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import Footer from "../Footer/Footer";
-//import { use } from "react";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -24,29 +25,18 @@ function App() {
   //const isWeatherDataLoaded = useState(false);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
-  const [clothingItems, setClothingItems] = useState([]);
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
-  const [name, setName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [weather, setWeather] = useState("");
+  //const [name, setName] = useState("");
+  //const [imageUrl, setImageUrl] = useState("");
+  //const [weather, setWeather] = useState("");
 
-  /*const handlenameChange = (evt) => {
-    setName(evt.target.value);
-  };
-  const handleimageUrlChange = (evt) => {
-    setImageUrl(evt.target.value);
-  };
-  const handleweatherChange = (evt) => {
-    setWeather(evt.target.value);
-  };*/
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
+  const handleAddSubmit = ({ name, imageUrl, weather }) => {
     const newItem = {
       _id: Date.now().toString(),
       name,
@@ -58,11 +48,10 @@ function App() {
     setClothingItems(updatedItems);
     localStorage.setItem("clothingItems", JSON.stringify(updatedItems));
 
-    setName("");
-    setImageUrl("");
-    setWeather("");
+    //setName("");
+    //setImageUrl("");
+    //setWeather("");
     closeActiveModal();
-    debugger;
   };
 
   const handleCardClick = (card) => {
@@ -96,6 +85,14 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    getItems()
+      .then((data) => {
+        console.log(data);
+      })
+      .catch(console.error);
+  }, []);
+
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -103,16 +100,33 @@ function App() {
       <div className="page">
         <div className="page__content">
           <Header handleAddClick={handleAddClick} weatherData={weatherData} />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  weatherData={weatherData}
+                  handleCardClick={handleCardClick}
+                  clothingItems={clothingItems}
+                />
+              }
+            />
+            <Route
+              path="/profile"
+              element={<Profile handleCardClick={handleCardClick} />}
+            />
+          </Routes>
+
           <Main
             weatherData={weatherData}
             handleCardClick={handleCardClick}
-            cards={clothingItems}
+            clothingItems={clothingItems}
           />
         </div>
 
         <AddItemModal
           isOpen={activeModal === "add-garment"}
-          onSubmit={handleSubmit}
+          addItem={handleAddSubmit}
           handleCloseClick={closeActiveModal}
         />
 
