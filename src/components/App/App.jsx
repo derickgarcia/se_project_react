@@ -8,7 +8,7 @@ import Footer from "../Footer/Footer";
 import Profile from "../Profile/Profile";
 import ItemModal from "../ItemModal/ItemModal";
 import { getWeatherData, filterWeatherData } from "../../utils/weatherApi";
-import { getItems } from "../../utils/api";
+import { getItems, addItems, deleteItems } from "../../utils/api";
 import "../../vendor/font.css";
 import { defaultClothingItems } from "../../utils/constants";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureContext";
@@ -63,6 +63,17 @@ function App() {
     setActiveModal("");
   };
 
+  const handleDeleteItems = (id) => {
+    deleteItems(id)
+      .then(() => {
+        //const updatedItems = clothingItems.filter((item) => item._id !== id);
+        setClothingItems((prevItems) => {
+          prevItems.filter((item) => item._id !== id);
+        });
+      })
+      .catch(console.error);
+  };
+
   useEffect(() => {
     getWeatherData(coordinates, APIkey)
       .then((data) => {
@@ -72,19 +83,18 @@ function App() {
       .catch(console.error);
   }, []);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const savedItems = localStorage.getItem("clothingItems");
     if (savedItems) {
       setClothingItems(JSON.parse(savedItems));
     } else {
       setClothingItems(defaultClothingItems);
     }
-  }, []);
+  }, []);*/
 
   useEffect(() => {
     getItems()
       .then((data) => {
-        //console.log(data);
         setClothingItems(data);
       })
       .catch(console.error);
@@ -110,7 +120,12 @@ function App() {
             />
             <Route
               path="/profile"
-              element={<Profile handleCardClick={handleCardClick} />}
+              element={
+                <Profile
+                  handleCardClick={handleCardClick}
+                  clothingItems={clothingItems}
+                />
+              }
             />
           </Routes>
         </div>

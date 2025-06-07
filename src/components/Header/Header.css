@@ -27,3 +27,8 @@
 .header__username {
   margin: 0;
 }
+
+.header__user-link {
+  text-decoration: none;
+  color: inherit;
+}
