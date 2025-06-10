@@ -12,3 +12,13 @@
 .modal__weather {
   margin-left: 32px;
 }
+
+.modal__delete-btn {
+  position: absolute;
+  top: 95px;
+  right: 20px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: #ff4d00;
+}

@@ -9,7 +9,6 @@ function ModalWithForm({
   isOpen,
   handleCloseClick,
   onSubmit,
-  //isValid = true,
 }) {
   const [isValid, setIsValid] = useState(false);
   useEffect(() => {

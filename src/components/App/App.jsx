@@ -13,6 +13,7 @@ import "../../vendor/font.css";
 import { defaultClothingItems } from "../../utils/constants";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import DeleteModal from "../DeleteModal/DeleteModal";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -59,11 +60,16 @@ function App() {
     setActiveModal("add-garment");
   };
 
+  const handleDeleteClick = () => {
+    setActiveModal("delete");
+    setSelectedCard(card);
+  };
+
   const closeActiveModal = () => {
     setActiveModal("");
   };
 
-  const handleDeleteItems = (id) => {
+  /* const handleDeleteItems = (id) => {
     deleteItems(id)
       .then(() => {
         //const updatedItems = clothingItems.filter((item) => item._id !== id);
@@ -72,7 +78,7 @@ function App() {
         });
       })
       .catch(console.error);
-  };
+  };*/
 
   useEffect(() => {
     getWeatherData(coordinates, APIkey)
@@ -140,7 +146,10 @@ function App() {
           activeModal={activeModal}
           card={selectedCard}
           handleCloseClick={closeActiveModal}
+          onDeleteClick={handleDeleteClick}
         />
+
+        <DeleteModal />
         <Footer />
       </div>
     </CurrentTemperatureUnitContext.Provider>
