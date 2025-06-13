@@ -1,27 +1,24 @@
-.delete__modal {
-  visibility: visible;
+.delete__message {
+  text-align: center;
 }
 
-.delete__modal_opened {
+.delete__actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 40px 0 60px;
+  gap: 24px;
 }
 
-.delete-modal__close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-}
-
-.delete-modal__confirm-button {
+.delete__confirm-button {
   cursor: pointer;
   background: transparent;
   border: none;
   color: #ff4d00;
 }
 
-.delete-modal__cancel-button {
+.delete__cancel-button {
   cursor: pointer;
   background: transparent;
   border: none;

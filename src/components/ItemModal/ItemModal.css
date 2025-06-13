@@ -15,7 +15,7 @@
 
 .modal__delete-btn {
   position: absolute;
-  top: 95px;
+  bottom: 83px;
   right: 20px;
   cursor: pointer;
   background: transparent;

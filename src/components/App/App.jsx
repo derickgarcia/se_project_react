@@ -62,23 +62,22 @@ function App() {
 
   const handleDeleteClick = () => {
     setActiveModal("delete");
-    setSelectedCard(card);
   };
 
   const closeActiveModal = () => {
     setActiveModal("");
   };
 
-  /* const handleDeleteItems = (id) => {
-    deleteItems(id)
+  const handleDeleteItems = () => {
+    deleteItems(selectedCard._id)
       .then(() => {
-        //const updatedItems = clothingItems.filter((item) => item._id !== id);
-        setClothingItems((prevItems) => {
-          prevItems.filter((item) => item._id !== id);
-        });
+        setClothingItems((prevItems) =>
+          prevItems.filter((item) => item._id !== selectedCard._id)
+        );
+        closeActiveModal();
       })
       .catch(console.error);
-  };*/
+  };
 
   useEffect(() => {
     getWeatherData(coordinates, APIkey)
@@ -146,10 +145,15 @@ function App() {
           activeModal={activeModal}
           card={selectedCard}
           handleCloseClick={closeActiveModal}
-          onDeleteClick={handleDeleteClick}
+          handleDeleteClick={handleDeleteClick}
         />
 
-        <DeleteModal />
+        <DeleteModal
+          activeModal={activeModal}
+          isOpen={activeModal === "delete"}
+          handleCloseClick={closeActiveModal}
+          onDelete={handleDeleteItems}
+        />
         <Footer />
       </div>
     </CurrentTemperatureUnitContext.Provider>
