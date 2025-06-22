@@ -23,7 +23,7 @@ function App() {
     condition: "",
     isDay: true,
   });
-  //const isWeatherDataLoaded = useState(false);
+
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
@@ -45,9 +45,6 @@ function App() {
     setClothingItems(updatedItems);
     localStorage.setItem("clothingItems", JSON.stringify(updatedItems));
 
-    //setName("");
-    //setImageUrl("");
-    //setWeather("");
     closeActiveModal();
   };
 
@@ -129,6 +126,7 @@ function App() {
                 <Profile
                   handleCardClick={handleCardClick}
                   clothingItems={clothingItems}
+                  handleAddClick={handleAddClick}
                 />
               }
             />
