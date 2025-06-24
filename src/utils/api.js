@@ -12,7 +12,7 @@ function addItems({ name, imageUrl, weather }) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, imageUrl, weather }),
+    body: JSON.stringify({ name, link: imageUrl, weather }),
   }).then((res) => {
     return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   });

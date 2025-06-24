@@ -2,7 +2,7 @@ import ItemCard from "../ItemCard/ItemCard";
 import "./ClothesSection.css";
 //import { defaultClothingItems } from "../../utils/constants";
 
-function ClothesSection({ handleCardClick, clothingItems, handleAddClick }) {
+function ClothesSection({ onCardClick, clothingItems, handleAddClick }) {
   return (
     <div className="clothes-section">
       <div className="clothes-section__header">
@@ -17,7 +17,7 @@ function ClothesSection({ handleCardClick, clothingItems, handleAddClick }) {
             <ItemCard
               key={item._id || `${item.name}-${index}`}
               item={item}
-              handleCardClick={handleCardClick}
+              onCardClick={onCardClick}
             />
           );
         })}

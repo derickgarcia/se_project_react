@@ -37,15 +37,21 @@ function App() {
     const newItem = {
       _id: Date.now().toString(),
       name,
-      link: imageUrl,
+      imageUrl,
       weather,
     };
 
-    const updatedItems = [...clothingItems, newItem];
-    setClothingItems(updatedItems);
-    localStorage.setItem("clothingItems", JSON.stringify(updatedItems));
-
-    closeActiveModal();
+    addItems(newItem)
+      .then((data) => {
+        setClothingItems((prevItems) => [...prevItems, data]);
+        setSelectedCard(data);
+        localStorage.setItem(
+          "clothingItems",
+          JSON.stringify([...clothingItems, data])
+        );
+        closeActiveModal();
+      })
+      .catch(console.error);
   };
 
   const handleCardClick = (card) => {

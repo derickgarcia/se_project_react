@@ -10,7 +10,7 @@ function Profile({ handleCardClick, clothingItems, handleAddClick }) {
       </section>
       <section className="profile__clothes-section">
         <ClothesSection
-          handleCardClick={handleCardClick}
+          onCardClick={handleCardClick}
           clothingItems={clothingItems}
           handleAddClick={handleAddClick}
         />
