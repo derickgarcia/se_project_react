@@ -43,12 +43,12 @@ function App() {
 
     addItems(newItem)
       .then((data) => {
-        setClothingItems((prevItems) => [...prevItems, data]);
+        setClothingItems((prevItems) => [data, ...prevItems]);
         setSelectedCard(data);
-        localStorage.setItem(
-          "clothingItems",
-          JSON.stringify([...clothingItems, data])
-        );
+        //localStorage.setItem(
+        //  "clothingItems",
+        //  JSON.stringify([data, ...clothingItems])
+        //);
         closeActiveModal();
       })
       .catch(console.error);
