@@ -2,6 +2,7 @@ import "./ItemModal.css";
 import close from "../../assets/close.svg";
 
 function ItemModal({ activeModal, handleCloseClick, card, handleDeleteClick }) {
+  const isOwn = selectedCard.owner === currentUser._id;
   return (
     <div className={`modal ${activeModal === "preview" && "modal_opened"}`}>
       <div className="modal__content modal__content_type_image">
