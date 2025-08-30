@@ -6,14 +6,20 @@ import { Link } from "react-router-dom";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useContext } from "react";
 
-function Header({ handleAddClick, weatherData }) {
+function Header({
+  handleAddClick,
+  weatherData,
+  isLoggedIn,
+  handleRegisterClick,
+  handleLoginClick,
+}) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
 
   const currentUser = useContext(CurrentUserContext);
-  const isLoggedIn = !!currentUser;
+  //const isLoggedIn = !!currentUser;
   const name = currentUser?.name || "";
   const avatar = currentUser?.avatar || "";
   const firstLetter = name.charAt(0).toUpperCase();
@@ -55,8 +61,22 @@ function Header({ handleAddClick, weatherData }) {
         </div>
       ) : (
         <div className="header__auth-btns">
-          <button>Sign Up</button>
-          <button>Log In</button>
+          <button
+            onClick={handleRegisterClick}
+            type="button"
+            name="register"
+            id="register"
+          >
+            Sign Up
+          </button>
+          <button
+            onClick={handleLoginClick}
+            type="button"
+            name="login"
+            id="login"
+          >
+            Log In
+          </button>
         </div>
       )}
     </header>

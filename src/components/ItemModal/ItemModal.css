@@ -22,3 +22,7 @@
   border: none;
   color: #ff4d00;
 }
+
+.modal__delete-btn_hidden {
+  display: none;
+}

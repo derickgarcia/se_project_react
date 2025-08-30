@@ -45,9 +45,17 @@ function App() {
   const navigaate = useNavigate();
 
   const handleRegistration = ({ name, avatar, email, password }) => {
-    signup({ name, password, email, avatar }).then((res) => {
-      closeActiveModal();
-    });
+    signup({ name, password, email, avatar })
+      .then((res) => {
+        console.log(res);
+        closeActiveModal();
+        return signin({ email, password });
+      })
+      .then((loginRes) => {
+        localStorage.setItem("jwt", loginRes.token);
+        setCurrentUser(loginRes.user);
+      })
+      .catch(console.error);
   };
 
   const handleLogIn = ({ email, password }) => {
@@ -86,6 +94,14 @@ function App() {
         closeActiveModal();
       })
       .catch(console.error);
+  };
+
+  const handleRegisterClick = () => {
+    setActiveModal("register");
+  };
+
+  const handleLoginClick = () => {
+    setActiveModal("login");
   };
 
   const handleCardClick = (card) => {
@@ -169,7 +185,13 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
           <div className="page__content">
-            <Header handleAddClick={handleAddClick} weatherData={weatherData} />
+            <Header
+              handleRegisterClick={handleRegisterClick}
+              handleLoginClick={handleLoginClick}
+              handleAddClick={handleAddClick}
+              weatherData={weatherData}
+              isLoggedIn={isLoggedIn}
+            />
             <Routes>
               <Route
                 path="/"
@@ -199,10 +221,13 @@ function App() {
           <RegisterModal
             isOpen={activeModal === "register"}
             handleCloseClick={closeActiveModal}
+            onLogin={handleLoginClick}
+            onSubmit={handleRegistration}
           />
           <LoginModal
             isOpen={activeModal === "login"}
             handleCloseClick={closeActiveModal}
+            onRegister={handleRegisterClick}
           />
 
           <AddItemModal

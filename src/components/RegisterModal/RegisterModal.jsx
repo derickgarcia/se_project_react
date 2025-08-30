@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 export default function RegisterModal({
   activeModal,
   handleCloseClick,
+  onLogin,
+  onSubmit,
   isOpen,
 }) {
   const [name, setName] = useState("");
@@ -26,6 +28,11 @@ export default function RegisterModal({
     setPassword(evt.target.value);
   };
 
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    onSubmit({ name, avatar, email, password });
+  };
+
   useEffect(() => {
     setName("");
     setAvatar("");
@@ -33,10 +40,10 @@ export default function RegisterModal({
     setPassword("");
   }, [isOpen]);
 
-  const handleSubmit = (evt) => {
+  /* const handleSubmit = (evt) => {
     evt.preventDefault();
     addProfile({ name, avatar, email, password });
-  };
+  }; */
 
   return (
     <ModalWithForm
@@ -99,7 +106,13 @@ export default function RegisterModal({
           required
         />
       </label>
-      <button type="button" className="login-switch_btn">
+      <button
+        onClick={onLogin}
+        type="button"
+        id="login"
+        name="login"
+        className="login-switch_btn"
+      >
         or Log In
       </button>
     </ModalWithForm>
