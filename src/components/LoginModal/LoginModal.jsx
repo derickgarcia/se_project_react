@@ -6,6 +6,7 @@ export default function LoginModal({
   activeModal,
   handleCloseClick,
   onRegister,
+  onSubmit,
   isOpen,
 }) {
   const [email, setEmail] = useState("");
@@ -25,7 +26,7 @@ export default function LoginModal({
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    //addItem({ name, imageUrl, weather });
+    onSubmit({ email, password });
   };
 
   return (

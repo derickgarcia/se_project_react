@@ -3,7 +3,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState, useEffect } from "react";
 
 export default function RegisterModal({
-  activeModal,
+  // activeModal,
   handleCloseClick,
   onLogin,
   onSubmit,
@@ -49,12 +49,12 @@ export default function RegisterModal({
     <ModalWithForm
       buttonText="Sign Up"
       titleText="Sign Up"
-      activeModal={activeModal}
+      // activeModal={activeModal}
       handleCloseClick={handleCloseClick}
       isOpen={isOpen}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="email" className="modal__label">
         Email{" "}
         <input
           type="email"
@@ -67,7 +67,7 @@ export default function RegisterModal({
           required
         />
       </label>
-      <label htmlFor="imageURL" className="modal__label">
+      <label htmlFor="password" className="modal__label">
         Password{" "}
         <input
           type="password"
@@ -93,7 +93,7 @@ export default function RegisterModal({
           required
         />
       </label>
-      <label htmlFor="imageURL" className="modal__label">
+      <label htmlFor="avatarUrl" className="modal__label">
         Avatar URL{" "}
         <input
           type="url"

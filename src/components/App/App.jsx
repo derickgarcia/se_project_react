@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { coordinates, APIkey } from "../../utils/constants";
+import * as auth from "../../utils/auth";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -10,7 +11,7 @@ import Profile from "../Profile/Profile";
 import ItemModal from "../ItemModal/ItemModal";
 import { getWeatherData, filterWeatherData } from "../../utils/weatherApi";
 import { getItems, addItems, deleteItems } from "../../utils/api";
-import { signup, signin, checkToken } from "../../utils/auth";
+import { signup, signin, checkToken, updateUser } from "../../utils/auth";
 import "../../vendor/font.css";
 import { defaultClothingItems } from "../../utils/constants";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureContext";
@@ -19,6 +20,7 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import LoginModal from "../LoginModal/LoginModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 // import { isFormElement } from "react-router-dom/dist/dom";
 
 function App() {
@@ -42,7 +44,7 @@ function App() {
   });
 
   const [token, setToken] = useState(localStorage.getItem("jwt") || "");
-  const navigaate = useNavigate();
+  const navigate = useNavigate();
 
   const handleRegistration = ({ name, avatar, email, password }) => {
     signup({ name, password, email, avatar })
@@ -63,13 +65,19 @@ function App() {
       .signin({ email, password })
       .then((res) => {
         localStorage.setItem("jwt", res.token);
+        setCurrentUser(res.user);
         setIsLoggedIn(true);
         closeActiveModal();
       })
       .catch(console.error);
   };
 
-  const handleLogOut = ({}) => {};
+  const handleLogOut = ({}) => {
+    localStorage.removeItem("jwt");
+    setCurrentUser({ email: "", name: "", avatar: "" });
+    setIsLoggedIn(false);
+    navigate("/");
+  };
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -96,6 +104,16 @@ function App() {
       .catch(console.error);
   };
 
+  const handleEditProfile = ({ name, avatar }) => {
+    auth
+      .updateUser({ name, avatar }, token)
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser);
+        closeActiveModal();
+      })
+      .catch(console.error);
+  };
+
   const handleRegisterClick = () => {
     setActiveModal("register");
   };
@@ -111,6 +129,10 @@ function App() {
 
   const handleAddClick = () => {
     setActiveModal("add-garment");
+  };
+
+  const handleEditProfileClick = () => {
+    setActiveModal("edit-profile");
   };
 
   const handleDeleteClick = () => {
@@ -165,7 +187,6 @@ function App() {
       setIsLoggedIn(false);
       return;
     }
-
     auth
       .checkToken(jwt)
       .then((userData) => {
@@ -211,6 +232,7 @@ function App() {
                       handleCardClick={handleCardClick}
                       clothingItems={clothingItems}
                       handleAddClick={handleAddClick}
+                      handleEditProfileClick={handleEditProfileClick}
                     />
                   </ProtectedRoute>
                 }
@@ -228,6 +250,7 @@ function App() {
             isOpen={activeModal === "login"}
             handleCloseClick={closeActiveModal}
             onRegister={handleRegisterClick}
+            onSubmit={handleLogIn}
           />
 
           <AddItemModal
@@ -241,6 +264,12 @@ function App() {
             card={selectedCard}
             handleCloseClick={closeActiveModal}
             handleDeleteClick={handleDeleteClick}
+          />
+
+          <EditProfileModal
+            isOpen={activeModal === "edit-profile"}
+            handleCloseClick={closeActiveModal}
+            onSubmit={handleEditProfile}
           />
 
           <DeleteModal

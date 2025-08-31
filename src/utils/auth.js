@@ -36,6 +36,19 @@ export const signin = ({ email, password }) => {
   });
 }; */
 
+export const updateUser = ({ name, avatar }, token) => {
+  return fetch(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name, avatar }),
+  }).then((res) =>
+    res.ok ? res.json() : Promise.reject(`Error:${res.status}`)
+  );
+};
+
 export const checkToken = (token) => {
   return fetch(`${baseUrl}/users/me`, {
     method: "GET",
