@@ -293,6 +293,7 @@ function App() {
             isOpen={activeModal === "edit-profile"}
             handleCloseClick={closeActiveModal}
             onSubmit={handleEditProfile}
+            currentUser={currentUser}
           />
 
           <DeleteModal

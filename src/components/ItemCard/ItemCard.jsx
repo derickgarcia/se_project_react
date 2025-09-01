@@ -1,4 +1,5 @@
 import "./ItemCard.css";
+import heart from "../../assets/heart.svg";
 
 function ItemCard({ item, onCardClick }) {
   const handleCardClick = () => {
@@ -8,6 +9,7 @@ function ItemCard({ item, onCardClick }) {
   return (
     <li className="card">
       <h2 className="card__name">{item.name}</h2>
+      <img className="card__like-btn" src={heart} alt="heart-icon" />
       <img
         onClick={handleCardClick}
         className="card__image"
