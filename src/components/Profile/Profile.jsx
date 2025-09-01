@@ -11,17 +11,8 @@ function Profile({
   return (
     <div className="profile">
       <section className="profile__sidebar">
-        <SideBar />
+        <SideBar handleEditProfileClick={handleEditProfileClick} />
       </section>
-      <button
-        onClick={handleEditProfileClick}
-        id="edit-profile"
-        name="edit-profile"
-        className="profile__edit"
-      >
-        Edit Profile
-      </button>
-      <button className="profile__logout">Log Out</button>
       <section className="profile__clothes-section">
         <ClothesSection
           onCardClick={handleCardClick}

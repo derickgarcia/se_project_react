@@ -3,6 +3,7 @@ import "./App.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { coordinates, APIkey } from "../../utils/constants";
 import * as auth from "../../utils/auth";
+import * as api from "../../utils/api";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -114,6 +115,27 @@ function App() {
       .catch(console.error);
   };
 
+  const handleCardLike = ({ id, isLiked }) => {
+    const token = localStorage.getItem("jwt");
+
+    !isLiked
+      ? // Add a like
+        api.addCardLike(id, token).then((updatedCard) => {
+          // Update the state with the new card data
+          setClothingItems((cards) =>
+            cards.map((item) => (item._id === id ? updatedCard : item))
+          );
+        })
+      : // If the item IS already liked
+        // Remove the like
+        api.removeCardLike(id, token).then((updatedCard) => {
+          // Update the state with the new card data
+          setClothingItems((cards) =>
+            cards.map((item) => (item._id === id ? updatedCard : item))
+          );
+        });
+  };
+
   const handleRegisterClick = () => {
     setActiveModal("register");
   };
@@ -221,6 +243,7 @@ function App() {
                     weatherData={weatherData}
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
+                    onCardLike={handleCardLike}
                   />
                 }
               />

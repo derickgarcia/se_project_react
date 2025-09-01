@@ -2,3 +2,23 @@
   display: flex;
   gap: 16px;
 }
+
+.sidebar__buttons {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 192px;
+  gap: 8px;
+}
+
+.sidebar__edit-profile {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.sidebar__logout {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
