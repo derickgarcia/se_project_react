@@ -7,11 +7,17 @@ function Profile({
   clothingItems,
   handleAddClick,
   handleEditProfileClick,
+  onSignOut,
+  currentUser,
 }) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
-        <SideBar handleEditProfileClick={handleEditProfileClick} />
+        <SideBar
+          handleEditProfileClick={handleEditProfileClick}
+          onSignOut={onSignOut}
+          currentUser={currentUser}
+        />
       </section>
       <section className="profile__clothes-section">
         <ClothesSection

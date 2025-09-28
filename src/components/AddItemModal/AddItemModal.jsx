@@ -30,6 +30,7 @@ export default function AddItemModal({
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    console.log("Form data being sent:", { name, imageUrl, weather });
     addItem({ name, imageUrl, weather });
   };
 

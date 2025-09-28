@@ -1,5 +1,5 @@
 import "./ModalWithForm.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import close from "../../assets/close.svg";
 
 function ModalWithForm({
@@ -11,12 +11,22 @@ function ModalWithForm({
   onSubmit,
 }) {
   const [isValid, setIsValid] = useState(false);
-  useEffect(() => {
+  /* useEffect(() => {
     const form = document.querySelector(".modal__form");
     if (form) {
       setIsValid(form.checkValidity());
     }
-  }, [children]);
+  }, [children]); */
+  const formRef = useRef(null);
+  const checkFormValidity = () => {
+    if (formRef.current) {
+      setIsValid(formRef.current.checkValidity());
+    }
+  };
+
+  useEffect(() => {
+    checkFormValidity();
+  }, [children, isOpen]);
 
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
@@ -29,7 +39,12 @@ function ModalWithForm({
         >
           <img src={close} alt="Close-icon" className="modal__close-icon" />
         </button>
-        <form className="modal__form" onSubmit={onSubmit}>
+        <form
+          ref={formRef}
+          className="modal__form"
+          onSubmit={onSubmit}
+          onChange={checkFormValidity}
+        >
           {children}
           <button
             disabled={!isValid}
